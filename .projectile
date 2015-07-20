@@ -1,3 +1,5 @@
 /elpa
 /savefile
 /.cask
+
+-/.python-environments

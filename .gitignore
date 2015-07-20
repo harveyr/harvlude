@@ -1,5 +1,7 @@
 *~
 *.elc
+*.dat
+.python-environments/
 auto-save-list
 recentf
 savehist
