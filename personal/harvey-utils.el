@@ -5,6 +5,14 @@
 
 ;;; Code:
 
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+
+
 (defun get-current-line ()
   "Return current line as string."
   (buffer-substring-no-properties
@@ -29,6 +37,38 @@
 (defun h-s-trim (s)
   "Remove whitespace at the beginning and end of S."
   (h-s-trim-left (h-s-trim-right s))
+  )
+
+
+(defun h-regen-etags ()
+  "Regenerate exuberant tags."
+  (interactive)
+  (error "I don't work yet")
+  (let (root-dir tags-file file-pattern command)
+    ;;(setq git-dir (h-s-trim (shell-command-to-string "git rev-parse --show-toplevel")))
+    (if (string-match "python" (prin1-to-string major-mode))
+        (setq file-pattern "*.py")
+      )
+
+    (unless file-pattern (error "I don't know how to handle %s" major-mode))
+
+    (setq root-dir (projectile-project-root))
+    (unless root-dir (error "You're not in a project"))
+
+    (setq tags-file (concat root-dir "TAGS"))
+
+    (let ((default-directory root-dir))
+      "ctags -R -e --exclude=.git --exclude=node_modules --exclude=bin --exclude=lib"
+      )
+    (setq command
+          (format "find %s -type f -name '%s' | xargs ctags -o %s --verbose"
+                  root-dir file-pattern tags-file))
+    (message "Running: %s" command)
+    ;;(projectile-run-async-shell-command-in-root "ls")
+    (kill-new command)
+    (async-shell-command command)
+    (visit-tags-table tags-file)
+    )
   )
 
 (defun h-kill-parens-inner ()
