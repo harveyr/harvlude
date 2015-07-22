@@ -27,8 +27,12 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
-;; Commenting
-(global-set-key (kbd "C-x C-/") 'comment-or-uncomment-region)
+;; Commenting (use M-; instead)
+;; (global-set-key (kbd "C-x C-/") 'comment-or-uncomment-region)
+
+
+(require 're-builder-x)
+(setq reb-re-syntax 'perl)
 
 (provide 'harvey-misc)
 ;;; harvey-misc.el ends here
