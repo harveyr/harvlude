@@ -2,6 +2,9 @@
 *.elc
 *.dat
 .python-environments/
+personal/preload/
+/prelude-modules.el
+/var/pcache
 auto-save-list
 recentf
 savehist
@@ -17,9 +20,7 @@ custom.el
 places
 .smex-items
 savefile/
-/prelude-modules.el
 projectile-bookmarks.eld
 session*
 .cask
 tramp
-/var/pcache
