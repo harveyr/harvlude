@@ -51,6 +51,24 @@
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
+(defun debug-type (x)
+  "Figure out what type X is.  Better way to do this?"
+  (with-current-buffer (get-buffer-create "*debug-type*")
+    (erase-buffer)
+    (insert (format "Evaluating: %S" x))
+    (newline)
+    (newline)
+    (insert "Types found:")
+    (newline)
+    (cond ((symbolp x) (insert "- symbol "))
+          ((listp x) (insert "- list "))
+          ((vectorp x) (insert "- vector "))
+          ((arrayp x) (insert "- array "))
+          ((bufferp x) (insert "- buffer "))
+          ((consp x) (insert "- cons "))
+          ((floatp x) (insert "- float "))
+          ))
+  (display-buffer "*debug-type*"))
 
 (defun insert-current-date ()
   "Insert current date as a string."
