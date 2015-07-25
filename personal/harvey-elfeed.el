@@ -8,8 +8,10 @@
 (global-set-key (kbd "C-x w") 'elfeed)
 (setq elfeed-feeds
       '("http://www.reddit.com/r/emacs/.rss"
-        "https://www.reddit.com/r/portland/.rss"
+        ;;"https://www.reddit.com/r/portland/.rss"
         "http://hnrss.org/newest?points=200"
+        "http://emacsredux.com/atom.xml"
+        "http://pragmaticemacs.com/feed/"
         "http://toastdriven.com/feeds/fresh_news/"))
 
 (provide 'harvey-elfeed)

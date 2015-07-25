@@ -52,6 +52,17 @@
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
 
+(defun insert-current-date ()
+  "Insert current date as a string."
+  (interactive)
+  (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
+
+(defun unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil region)))
+
 (defun h-regen-etags ()
   "Regenerate exuberant tags."
   (interactive)
