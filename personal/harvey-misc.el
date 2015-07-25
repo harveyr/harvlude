@@ -92,45 +92,6 @@
          (create-auth-header-for-authinfo-machine
           "urbanairship.jiveon.com"))
 
-(defun get-sentry-errors (organization project)
-  "Get sentry errors. Experimental."
-  (require 'json)
-  (let ((url-request-method "GET")
-        (sentry-host "sentry.prod.urbanairship.com")
-        (url (format "https://%s/api/0/projects/%s/%s/stats/"
-                     sentry-host organization project))
-        (api-key (get-authinfo-pw sentry-host))
-        api-key
-        response-buffer
-        response-data
-        url-request-extra-headers)
-    (setq sentry-host "sentry.prod.urbanairship.com")
-    (setq url (format "https://%s/api/0/projects/%s/%s/stats/"
-                      sentry-host organization project))
-    (setq api-key (get-authinfo-pw sentry-host))
-    (setq auth-header (create-auth-header api-key ""))
-    (setq url-request-method "GET")
-    (setq url-request-extra-headers `(("Authorization" . ,auth-header)))
-    ;; http://stackoverflow.com/questions/16447266/http-request-in-emacs
-    (point)
-    (with-current-buffer (url-retrieve-synchronously url)
-      (progn
-        (buffer-string)
-        (beginning-of-buffer)
-        (search-forward "[")
-        (backward-char)
-        (delete-region (point-min) (point))
-        (json-read-from-string (buffer-string))
-        ))))
-
-(get-sentry-errors "ua" "airship-py")
-(defun test-sentry-stuff ()
-  (interactive)
-  (get-sentry-errors "ua" "airship-py"))
-
-
-(json-read-from-string "[[1437696000, 1]]")
-
 (require 're-builder-x)
 (setq reb-re-syntax 'perl)
 
